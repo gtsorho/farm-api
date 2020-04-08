@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class espcontroller extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,9 @@ class espcontroller extends Controller
      */
     public function index()
     {
-     $espdata = espdata::all();
+    //  abort_if($User->id !== auth()->guard('api')->id(), 403);
+     $espdata = espdata::where('user_id', auth()->guard('api')->id())->get();
+
      return espdataResource::collection($espdata);
     }
 
@@ -29,7 +36,8 @@ class espcontroller extends Controller
     public function store(Request $request)
     {
         
-        espdata::create(request()->all());
+        espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
+
         return new espdataResource(['data stored']);
     }
 
@@ -45,16 +53,4 @@ class espcontroller extends Controller
         return new espdataResource($espdata);
     }
 
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\espdata  $espdata
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(espdata $espdata)
-    {
-        //
-    }
 }
