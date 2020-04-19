@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\espdata;
-use App\Http\Resources\espdata as espdataResource;
+use App\Events\MyEvent;
 use Illuminate\Http\Request;
+use App\Http\Resources\espdata as espdataResource;
+
+
+
 
 class espcontroller extends Controller
 {
@@ -21,9 +25,13 @@ class espcontroller extends Controller
     public function index()
     {
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
-     $espdata = espdata::where('user_id', auth()->guard('api')->id())->get();
+     $message = espdata::where('user_id', auth()->guard('api')->id())->get();
 
-     return espdataResource::collection($espdata);
+     $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
+
+     event(new MyEvent(['message'=>$message, 'singleData'=>$single_data, 'status'=>"plural"]));
+
+     return new espdataResource($message);
     }
 
 
@@ -37,8 +45,12 @@ class espcontroller extends Controller
     {
         
         espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
+        // $message = espdata::where('user_id', auth()->guard('api')->id())->get();
+        $message = espdata::latest('user_id', auth()->guard('api')->id())->first();
+                
+        event(new MyEvent(['message'=>$message, 'status'=>"single"]));
 
-        return new espdataResource(['data stored']);
+        return new espdataResource([$message]);
     }
 
     /**

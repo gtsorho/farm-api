@@ -13,7 +13,7 @@ class registrationController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')
-             ->only(['profile_update', 'logout']);
+             ->only(['profile_update', 'logout', 'user']);
     }
 
     /**
@@ -35,7 +35,7 @@ class registrationController extends Controller
 
           if ($validator->fails())
         {
-            return new espdata(['errors'=>$validator->errors()->all()], 422);
+            return new espdata(['errors'=>$validator->errors()->all(),'status'=>"error"]);
         }
         
         $User =  User::create([
@@ -47,8 +47,23 @@ class registrationController extends Controller
                 'password' => Hash::make($Request['password']),
             ]);
 
-       return new espdata($User);
+       return new espdata(['data'=>$User, 'status'=>"success"]);
 
+    }
+
+    public function user()
+    {
+        $User = User::where('id', auth()->guard('api')->id())->get();
+        return response()->json($User);
+    }
+
+    public function login()
+    {
+        $client_id = config('services.passport.client_id');
+        $client_secret = config('services.passport.client_secret');
+        return response()->json(['client_secret'=>$client_secret, 'client_id'=>$client_id]);
+        // return new espdata([$client_secret, $client_id]);
+        // dd($client_secret);
     }
 
     public function profile_update(Request $Request, User $User)
@@ -57,25 +72,21 @@ class registrationController extends Controller
         abort_if($User->id !== auth()->guard('api')->id(), 403);
 
         $validator = Validator::make($Request->all(), [ 
-            'firstName' => ['string', 'max:255'],
-            'surname' =>['string', 'max:255'],
-            'email'  =>  ['string', 'email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
-            
+            'firstName' => ['string','required','min:3','max:255'],
+            'surname' =>['string','required', 'min:3','max:255'],
+            'email'  =>  ['string','email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']     
         ]);
 
         if ($validator->fails())
         {
-            return new espdata(['errors'=>$validator->errors()->all()], 422);
+            return new espdata(['errors'=>$validator->errors()->all(),'status'=>"error"]);
         }
         
-
-        
-
         $Request['password']= Hash::make($Request['password']);
         $User->update($Request->all());
 
-        return new espdata($User);
+        return new espdata(['data'=> $User,'status'=> "success"]);
 
     }
     public function logout(Request $Request)
