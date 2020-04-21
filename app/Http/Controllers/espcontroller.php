@@ -45,6 +45,8 @@ class espcontroller extends Controller
     {
         
         espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
+        permanentespdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
+
         // $message = espdata::where('user_id', auth()->guard('api')->id())->get();
         $message = espdata::latest('user_id', auth()->guard('api')->id())->first();
                 
@@ -63,6 +65,18 @@ class espcontroller extends Controller
     {
         // $espdata= espdata::find($id);
         return new espdataResource($espdata);
+    }
+
+    public function destroy(espdata $espdata) 
+    {
+        $espdata  = espdata::where('user_id', auth()->guard('api')->id())->count();
+        if ( $espdata > 20){
+            // $espdata->destroy();
+            $delete = espdata::where('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->delete();
+            return new espdataResource(["message"=> "deleted"]);
+        }else{
+            return new espdataResource(["message"=> "can't delete"]);
+        }
     }
 
 }
