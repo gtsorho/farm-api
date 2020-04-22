@@ -13,7 +13,7 @@ class CreatePermanentespdatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('permanentespdatas', function (Blueprint $table) {
+        Schema::create('permanentespdata', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedinteger('user_id');
             $table->double('temperature');
@@ -34,6 +34,6 @@ class CreatePermanentespdatasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permanentespdatas');
+        Schema::dropIfExists('permanentespdata');
     }
 }
