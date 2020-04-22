@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\espdata;
 use App\Events\MyEvent;
 use Illuminate\Http\Request;
+use App\permanentespdata;
 use App\Http\Resources\espdata as espdataResource;
 
 
