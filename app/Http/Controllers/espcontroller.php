@@ -68,7 +68,7 @@ class espcontroller extends Controller
         return new espdataResource($espdata);
     }
 
-    public function destroy(espdata $espdata) 
+    public function clear(espdata $espdata) 
     {
         $espdata  = espdata::where('user_id', auth()->guard('api')->id())->count();
         if ( $espdata > 20){
