@@ -24,8 +24,7 @@ Route::get('login', 'registrationController@login');
 Route::get('espdata/user', 'registrationController@user');
 
 
-// Route::resource('espdata','espcontroller')->parameters(['espdata' => 'espdata']);
-Route::delete('espdata/{espdata}','espcontroller@destroy');
+Route::resource('espdata','espcontroller')->parameters(['espdata' => 'espdata']);
 Route::post('espdata/user_registration', 'registrationController@userRegistration');
 Route::patch('espdata/profile_update/{User}', 'registrationController@profile_update');
 Route::post('espdata/logout', 'registrationController@logout');
