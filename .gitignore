@@ -1,7 +1,7 @@
 # /node_modules
 # /public/hot
 # /public/storage
-# .env
+.env
 # .phpunit.result.cache
 # Homestead.json
 # Homestead.yaml
