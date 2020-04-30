@@ -43,4 +43,14 @@ class User extends Authenticatable
     {
         $this->notify(new PasswordResetNotification($token));
     }
+
+  public function pagekey()
+  {
+      return $this->hasMany(pagekey::class);
+  }
+
+  public function espdata()
+  {
+      return $this->hasMany(espdata::class);
+  }
 }

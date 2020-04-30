@@ -36,6 +36,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\espdata' => $baseDir . '/app/espdata.php',
+    'App\\pagekey' => $baseDir . '/app/pagekey.php',
     'App\\permanentespdata' => $baseDir . '/app/permanentespdata.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',

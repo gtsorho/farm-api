@@ -20,5 +20,10 @@ class espdata extends Model
     ];
 
     public $table ="espdata";
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }
