@@ -25,7 +25,7 @@ class espcontroller extends Controller
      */
     public function index()
     {
- 
+    //  abort_if($User->id !== auth()->guard('api')->id(), 403);
      $message = espdata::where('user_id', auth()->guard('api')->id())->get();
 
      $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
@@ -50,7 +50,7 @@ class espcontroller extends Controller
         espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
         // $message = espdata::where('user_id', auth()->guard('api')->id())->get();
         $message = espdata::latest('user_id', auth()->guard('api')->id())->first();
-        $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()->user_id;
+        $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
                 
         event(new MyEvent(['message'=>$message, 'channelkey'=>$channelkey ,'status'=>"single"]));
