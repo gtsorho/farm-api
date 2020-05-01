@@ -30,11 +30,11 @@ class espcontroller extends Controller
 
      $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
 
-     $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()->user_id;
+     $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
      event(new MyEvent(['message'=>$message, 'singleData'=>$single_data, 'status'=>"plural", 'channelkey'=>$channelkey]));
 
-     return new espdataResource([$message, $single_data]);
+     return new espdataResource([$message, $single_data, $channelkey]);
     }
 
 
