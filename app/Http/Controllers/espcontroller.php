@@ -47,9 +47,9 @@ class espcontroller extends Controller
     public function store(Request $request)
     {
         
-        espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
+        $message = espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
         // $message = espdata::where('user_id', auth()->guard('api')->id())->get();
-        $message = espdata::latest('user_id', auth()->guard('api')->id())->first();
+        // $message = espdata::latest('user_id', auth()->guard('api')->id())->first();
         $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
                 
