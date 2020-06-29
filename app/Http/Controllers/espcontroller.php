@@ -32,6 +32,8 @@ class espcontroller extends Controller
 
      $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
+    //  $average = espdata::where('created_at', '<', Carbon::now()->subMinutes(5)->toDateTimeString());
+
      event(new MyEvent(['message'=>$message, 'singleData'=>$single_data, 'status'=>"plural", 'channelkey'=>$channelkey]));
 
      return new espdataResource([$message, $single_data, $channelkey]);
