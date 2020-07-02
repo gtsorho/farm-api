@@ -69,15 +69,20 @@ class espcontroller extends Controller
         $todayDay =$parseToday->day;
 
         $averageData = \collect(); 
+        $dateData = \collect();
 
         for($day = 1; $day <= $todayDay; $day++ ){
             $message = espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereDate('created_at', $todayYear.'-'.$todayMonth.'-'.$day)->get();
+            $sendDate = $todayYear.'-'.$todayMonth.'-'.$day ;
+            $dateData->push($sendDate);
             $averageData->push($message);
+    
+
         }
          
         $monthlyAgerage =espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereYear('created_at', $todayYear)->whereMonth('created_at', $todayMonth)->get();
         
-        return response()->json(['averageData' => $averageData, 'monthlyMessage'=>$monthlyAgerage]);
+        return response()->json(['averageData' => $averageData, 'dateData'=>$dateData, 'monthlyMessage'=>$monthlyAgerage]);
     }
 
     /**
