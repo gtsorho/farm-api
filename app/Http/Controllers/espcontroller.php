@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\espdata;
+use carbon\carbon;
 use App\Events\MyEvent;
 use Illuminate\Http\Request;
 use App\permanentespdata;
@@ -28,7 +30,7 @@ class espcontroller extends Controller
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
      $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->get();
 
-     $single_data = espdata::where('user_id', auth()->guard('api')->id())->first();
+     $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
 
      $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
@@ -58,6 +60,24 @@ class espcontroller extends Controller
         event(new MyEvent(['message'=>$message, 'channelkey'=>$channelkey ,'status'=>"single"]));
 
         return new espdataResource([$message]);
+    }
+    public function avg(espdata $espdata){
+        $today = carbon::now();
+        $parseToday = carbon::parse($today);
+        $todayYear = $parseToday->year;
+        $todayMonth = $parseToday->month;
+        $todayDay =$parseToday->day;
+
+        $averageData = \collect(); 
+
+        for($day = 1; $day <= $todayDay; $day++ ){
+            $message = espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereDate('created_at', $todayYear.'-'.$todayMonth.'-'.$day)->get();
+            $averageData->push($message);
+        }
+         
+        $monthlyAgerage =espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereYear('created_at', $todayYear)->whereMonth('created_at', $todayMonth)->get();
+        
+        return response()->json(['averageData' => $averageData, 'monthlyMessage'=>$monthlyAgerage]);
     }
 
     /**
