@@ -61,6 +61,7 @@ class espcontroller extends Controller
 
         return new espdataResource([$message]);
     }
+    
     public function avg(espdata $espdata){
         $today = carbon::now();
         $parseToday = carbon::parse($today);
