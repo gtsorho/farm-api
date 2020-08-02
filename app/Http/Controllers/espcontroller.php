@@ -28,7 +28,7 @@ class espcontroller extends Controller
     public function index()
     {
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
-     $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->get();
+     $message = espdata::latest('user_id', auth()->guard('api')->id())->take(20)->get();
 
      $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
 
