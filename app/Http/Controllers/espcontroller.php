@@ -33,7 +33,7 @@ class espcontroller extends Controller
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
     //  $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->get();
      $message = espdata::where('user_id', auth()->guard('api')->id())->orderBy('id','desc')->take(20)->get();
-     return $message->reverse();
+     $message =  $message->reverse();
     
 
      $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
