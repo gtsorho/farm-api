@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens,Notifiable;
 
+    public function routeNotificationForNexmo($notification)
+    {
+        return $this->phone;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

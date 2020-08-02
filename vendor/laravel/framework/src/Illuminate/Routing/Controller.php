@@ -3,7 +3,7 @@
 namespace Illuminate\Routing;
 
 use BadMethodCallException;
-use App\contoller\ForgotPasswordController;
+
 abstract class Controller
 {
     /**

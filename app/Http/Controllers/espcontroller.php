@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\User;
 use App\espdata;
 use carbon\carbon;
 use App\Events\MyEvent;
 use Illuminate\Http\Request;
 use App\permanentespdata;
+use App\Notifications\userNotification;
 use App\Http\Resources\espdata as espdataResource;
 
 
@@ -52,13 +54,22 @@ class espcontroller extends Controller
     {
         
         $message = espdata::create(request()->all() + ['user_id'=>auth()->guard('api')->id()]);
-        // $message = espdata::where('user_id', auth()->guard('api')->id())->get();
-        // $message = espdata::latest('user_id', auth()->guard('api')->id())->first();
         $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
-                
-        event(new MyEvent(['message'=>$message, 'channelkey'=>$channelkey ,'status'=>"single"]));
+        $today = carbon::now();
+        $parseToday = carbon::parse($today);
+        $todayYear = $parseToday->year;
+        $todayMonth = $parseToday->month;
+        
+        $moist = request(['moisture']);        
+        $monthlyAgerage =espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereYear('created_at', $todayYear)->whereMonth('created_at', $todayMonth)->get();
+        if($moist <= $monthlyAgerage){
+            $user = User::latest('id', auth()->guard('api')->id())->first();
+            $user->notify(new userNotification($moist['moisture']));
+        }
+        // return response()->json(['moist' => $moist, 'monthlyMessage'=>$monthlyAgerage]);
 
+        event(new MyEvent(['message'=>$message, 'channelkey'=>$channelkey ,'status'=>"single"]));
         return new espdataResource([$message]);
     }
     
@@ -77,13 +88,14 @@ class espcontroller extends Controller
             $sendDate = $todayYear.'-'.$todayMonth.'-'.$day ;
             $dateData->push($sendDate);
             $averageData->push($message);
-    
-
         }
          
         $monthlyAgerage =espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereYear('created_at', $todayYear)->whereMonth('created_at', $todayMonth)->get();
         
-        return response()->json(['averageData' => $averageData, 'dateData'=>$dateData, 'monthlyMessage'=>$monthlyAgerage]);
+        $user = User::latest('id', auth()->guard('api')->id())->first();
+
+        return response()->json(['averageData' => $averageData, 'dateData'=>$dateData, 'monthlyMessage'=>$monthlyAgerage, 'user'=>$user]);
+
     }
 
     /**
