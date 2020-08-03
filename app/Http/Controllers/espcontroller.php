@@ -9,10 +9,8 @@ use carbon\carbon;
 use App\Events\MyEvent;
 use Illuminate\Http\Request;
 use App\permanentespdata;
-<<<<<<< HEAD
 // use Illuminate\Support\Collection;
-=======
->>>>>>> b4233401bb47582748a5509d1b229ee79346256d
+
 use App\Notifications\userNotification;
 use App\Http\Resources\espdata as espdataResource;
 
@@ -76,11 +74,9 @@ class espcontroller extends Controller
         // return response()->json(['moist' => $moist, 'monthlyMessage'=>$monthlyAgerage]);
 
         event(new MyEvent(['message'=>$message, 'channelkey'=>$channelkey ,'status'=>"single"]));
-<<<<<<< HEAD
-        return new espdataResource([$monthlyAgerage]);
-=======
+
         return new espdataResource([$message]);
->>>>>>> b4233401bb47582748a5509d1b229ee79346256d
+
     }
     
     public function avg(espdata $espdata){
@@ -105,13 +101,12 @@ class espcontroller extends Controller
         $user = User::latest('id', auth()->guard('api')->id())->first();
 
         return response()->json(['averageData' => $averageData, 'dateData'=>$dateData, 'monthlyMessage'=>$monthlyAgerage, 'user'=>$user]);
-<<<<<<< HEAD
-=======
+
 
     }
->>>>>>> b4233401bb47582748a5509d1b229ee79346256d
+
 
         // $espdata= espdata::find($id);
         // return new espdataResource($espdata);
-    }
+    
 }
