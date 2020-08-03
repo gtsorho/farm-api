@@ -36,7 +36,7 @@ class espcontroller extends Controller
     //  $messageRev =  $message->reverse()->reverse();
     
 
-     $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
+     $single_data = espdata::latest('user_id', auth()->guard('api')->id())->get();
 
      $channelkey = espdata::latest('user_id', auth()->guard('api')->id())->first()['user_id'];
 
