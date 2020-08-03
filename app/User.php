@@ -16,10 +16,7 @@ class User extends Authenticatable
     {
         return $this->phone;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> b4233401bb47582748a5509d1b229ee79346256d
+    
     /**
      * The attributes that are mass assignable.
      *
