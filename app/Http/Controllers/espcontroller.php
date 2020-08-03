@@ -32,7 +32,7 @@ class espcontroller extends Controller
     {
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
     //  $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->get();
-     $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id','desc')->take(20)->get();
+     $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id')->take(20)->get();
     //  $messageRev =  $message->reverse()->reverse();
     
 
@@ -101,6 +101,6 @@ class espcontroller extends Controller
         return response()->json(['averageData' => $averageData, 'dateData'=>$dateData, 'monthlyMessage'=>$monthlyAgerage, 'user'=>$user]);
 
         // $espdata= espdata::find($id);
-        return new espdataResource($espdata);
+        // return new espdataResource($espdata);
     }
 }
