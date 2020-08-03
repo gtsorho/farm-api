@@ -33,7 +33,6 @@ class espcontroller extends Controller
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
     //  $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->get();
      $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id')->take(20)->get();
-    //  $messageRev =  $message->reverse()->reverse();
     
 
      $single_data = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id','dsec')->first();
@@ -74,7 +73,7 @@ class espcontroller extends Controller
         // return response()->json(['moist' => $moist, 'monthlyMessage'=>$monthlyAgerage]);
 
         event(new MyEvent(['message'=>$message, 'channelkey'=>$channelkey ,'status'=>"single"]));
-        return new espdataResource([$message]);
+        return new espdataResource([$monthlyAgerage]);
     }
     
     public function avg(espdata $espdata){
