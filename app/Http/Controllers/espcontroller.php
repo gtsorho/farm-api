@@ -32,8 +32,8 @@ class espcontroller extends Controller
     {
     //  abort_if($User->id !== auth()->guard('api')->id(), 403);
     //  $message = espdata::latest('user_id', auth()->guard('api')->id())->orderBy('id', 'desc')->take(20)->get();
-     $message = espdata::where('user_id', auth()->guard('api')->id())->orderBy('id','desc')->take(20)->get()->reverse();
-    //  $messageRev =  $message->reverse()->reverse();
+     $message = espdata::where('user_id', auth()->guard('api')->id())->orderBy('id','desc')->take(20)->get();
+     $messageRev =  $message->reverse()->reverse();
     
 
      $single_data = espdata::latest('user_id', auth()->guard('api')->id())->first();
@@ -42,9 +42,9 @@ class espcontroller extends Controller
 
     //  $average = espdata::where('created_at', '<', Carbon::now()->subMinutes(5)->toDateTimeString());
 
-     event(new MyEvent(['message'=>$message, 'singleData'=>$single_data, 'status'=>"plural", 'channelkey'=>$channelkey]));
+     event(new MyEvent(['message'=>$messageRev, 'singleData'=>$single_data, 'status'=>"plural", 'channelkey'=>$channelkey]));
 
-     return new espdataResource([$message, $single_data, $channelkey]);
+     return new espdataResource([$messageRev, $single_data, $channelkey]);
     }
 
 
