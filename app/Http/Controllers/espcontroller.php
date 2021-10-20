@@ -19,7 +19,6 @@ use App\Http\Resources\espdata as espdataResource;
 
 class espcontroller extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -95,7 +94,8 @@ class espcontroller extends Controller
             $dateData->push($sendDate);
             $averageData->push($message);
         }
-         
+        // dd($averageData, $dateData);
+
         $monthlyAgerage =espdata::select(DB::raw('avg(rain) rainAvg, avg(light) lightAvg, avg(moisture) moistureAvg, avg(temperature) temperatureAvg, avg(humidity) humidityAgv'))->whereYear('created_at', $todayYear)->whereMonth('created_at', $todayMonth)->get();
         
         $user = User::latest('id', auth()->guard('api')->id())->first();

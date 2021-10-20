@@ -1,0 +1,163 @@
+body,html{
+    margin: 0;
+    height: 100%;
+    /* background-image: url("../media/landimage.jpg"); */
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: rgba(204, 204, 204, 0.11);
+    scroll-behavior: unset;
+  
+}
+.navbar {
+    margin-top: 10px;
+    background-color: transparent;
+    background-image: none;
+    margin-left: 1%;
+    
+}
+#lgtxt{
+    float: right;
+    padding-top: 35px;
+    font-size: 20px;
+    font-size: 30px;
+    font-style: italic;
+    font-variant-caps: small-caps;
+    font-family: sans-serif;
+    text-decoration: overline;
+    color: #5d5a5aeb;
+}
+#myChart{
+    width: 40%;
+    height: 40%;
+}
+#avgChart{
+    width: 40%;
+    height: 40%;
+}
+#datacol{
+    margin-left: 1%;
+}
+.footer{
+    background-color: rgba(255, 255, 255, 0);
+    padding: 0mm;
+    bottom: 0%;
+    width: 100%;
+}
+#box{
+    margin-bottom: 2px;
+}
+#dashpan{
+    width: 100%;
+    border-radius: 0px;
+    box-shadow: -20px -1em 1em 0em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+    font-size: 1rem;
+    height: 100%;
+}
+.panel-block{
+    padding: 25px;
+}
+.uf{
+    margin-right: 10px;
+}
+#userpro{
+    display: none;
+}
+#userset{
+    display: none;
+}
+#notification{
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display:none;
+}
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122, 217, 122)),
+									   color-stop(0.72, rgb(73, 189, 73)),
+									   color-stop(0.86, rgb(38, 148, 28)));
+}
+#onbtn{
+    height: 28px;
+    font-size: smaller;
+}
+#offbtn{
+    height: 28px;
+    font-size: smaller;
+}
+#controlcenter{
+    display: none;
+}
+#chartbtn{
+    height: 35px;
+    font-size: medium;
+}
+#ndvibtn{
+    height: 35px;
+    font-size: medium;
+}
+#avgbtn{
+    height: 35px;
+    font-size: medium;
+}
+div#image-container {
+    text-align: center;
+}
+
+div#colorbar-container {
+    display: inline-block;
+    width: 70%;
+}
+
+div#colorbar-container canvas#colorbar {
+    width: 80%;
+    height: 2em;
+    vertical-align: middle;
+}
+#ndviSec{
+    display: none;
+}
+#averageSec{
+    display: none;
+}
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+  }
+  #image-modal{
+    display: none;
+    }
+@media only screen and (max-width: 600px) {
+    @media only screen and (orientation: portrait) {
+     #image-modal{
+         display: block;
+     }
+     .modal-card, .modal-content{
+        width: 90%;
+        top: 40%;
+     }
+  }
+}

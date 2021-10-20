@@ -23,12 +23,12 @@ class MyEvent implements ShouldBroadcast
 
   public function broadcastOn()
   {
-      $channelkey = $this->message['channelkey'];
-      return ['my-channel'.$channelkey];
+    $channelkey = $this->message['channelkey'];
+    return ['my-channel'.$channelkey];
   }
 
   public function broadcastAs()
   {
-      return 'my-event';
+    return 'my-event';
   }
 }

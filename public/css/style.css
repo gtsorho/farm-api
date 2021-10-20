@@ -1,0 +1,127 @@
+body,html{
+    
+    background-image: url("../media/landimage.jpg");
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    scroll-behavior: unset;
+  
+}
+#sgnbtn{
+    float: right;
+    margin-top: -40px;
+}
+#lgnbtn{
+    float: right;
+    margin-top: -40px;
+}
+#signUp{
+    display: none;
+    margin-bottom: 106px;
+}
+#signIn{
+    height: 40%;
+    margin: -18px;
+}
+#signinArt{
+    height: 200%;
+    top: 83%;
+    background-color: #cacacabb;
+}
+#signincont{
+    margin-top: 15%;
+}
+#signupArt{
+    max-height: 450px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #cacacabb;
+}
+.navbar {
+    margin-top: 10px;
+    background-color: transparent;
+    background-image: none;
+    
+}
+#lgtxt{
+    float: right;
+    padding-top: 35px;
+    font-size: 20px;
+    font-size: 30px;
+    font-style: italic;
+    font-variant-caps: small-caps;
+    font-family: sans-serif;
+    text-decoration: overline;
+    color: #ffffffc7;
+}
+.footer{
+    background-color: #cacacae6;
+    padding: 1rem 1.5rem 1rem;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+  
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122, 217, 122)),
+									   color-stop(0.72, rgb(73, 189, 73)),
+									   color-stop(0.86, rgb(38, 148, 28)));
+}
+.hero{
+    margin-top: 10%;
+    margin-bottom: 10%;
+    width: 50%;
+    float: left;
+}
+ #herotit{
+    font-size: 40px;
+    text-align:  left;
+    white-space: normal;
+    overflow: hidden;
+ 
+ 
+  }
+  #herosub{
+    font-size: 20px;
+    text-align:  left;
+    white-space:normal;
+    overflow: hidden;
+
+  }
+  @keyframes type{ 
+    from { width: 0; } 
+  } 
+  #signup_msg{
+      text-align: center;
+      color: rgb(226, 206, 164);
+      background-color: teal;
+      margin-bottom: 15px;
+  }
+  #signin_msg{
+    text-align: center;
+    color: rgb(226, 206, 164);
+    background-color: teal;
+    margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    body, html{
+        height: 120%;
+    }
+  }
